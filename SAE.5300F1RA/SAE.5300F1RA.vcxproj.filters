@@ -1357,5 +1357,15 @@
     <None Include="src\Vendor\glm\glm\gtx\wrap.inl">
       <Filter>Headerdateien</Filter>
     </None>
+    <None Include="res\Shader\fragmentShader.glsl" />
+    <None Include="res\Shader\vertexShader.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\Texture\goldenTexture.jpg">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\Texture\TextureLava.jpg">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
   </ItemGroup>
 </Project>

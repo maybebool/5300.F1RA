@@ -450,6 +450,8 @@
     <ClInclude Include="src\Vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="res\Shader\fragmentShader.glsl" />
+    <None Include="res\Shader\vertexShader.glsl" />
     <None Include="src\Vendor\glm\glm\detail\func_common.inl" />
     <None Include="src\Vendor\glm\glm\detail\func_common_simd.inl" />
     <None Include="src\Vendor\glm\glm\detail\func_exponential.inl" />
@@ -589,6 +591,10 @@
     <None Include="src\Vendor\glm\glm\gtx\vector_angle.inl" />
     <None Include="src\Vendor\glm\glm\gtx\vector_query.inl" />
     <None Include="src\Vendor\glm\glm\gtx\wrap.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\Texture\goldenTexture.jpg" />
+    <Image Include="res\Texture\TextureLava.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
