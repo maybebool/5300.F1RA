@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\Vendor\glm\glm\detail\glm.cpp" />
     <ClCompile Include="src\Vendor\imgui\imgui.cpp" />
     <ClCompile Include="src\Vendor\imgui\imgui_demo.cpp" />
@@ -151,6 +152,7 @@
     <ClCompile Include="src\Vendor\stb_image\stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\Vendor\glm\glm\common.hpp" />
     <ClInclude Include="src\Vendor\glm\glm\detail\compute_common.hpp" />
     <ClInclude Include="src\Vendor\glm\glm\detail\compute_vector_relational.hpp" />
