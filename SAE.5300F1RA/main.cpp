@@ -3,7 +3,7 @@
 #include <iostream>
 #include <cmath>
 
-#include "res/Shader.h"
+#include "Shader.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -151,8 +151,8 @@ int main()
 
 	/* Texture */
 	stbi_set_flip_vertically_on_load(true);// NOTE: it's working like a flag once you turned to true it won't be false until you turn it to false.
-	GLuint contianer_texture = load_texture("res/Texture/container.jpg");
-	GLuint face_texture = load_texture("res/Texture/awesomeface.png");
+	GLuint contianer_texture = load_texture("res/Texture/goldenTexture.jpg");
+	GLuint face_texture = load_texture("res/Texture/TextureLava.jpg");
 
 	/* Shader */
 	Shader myShader("res/Shader/vertexShader.glsl", "res/Shader/fragmentShader.glsl");
