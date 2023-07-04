@@ -4,18 +4,25 @@
 #include <cmath>
 
 #include "Shader.h"
+#include "Camera.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+
 #include "stb_image.h"
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
+
 
 #define SCR_WIDTH 1000
 #define SCR_HEIGHT 800
 #define MAPSIZE_X 10
 #define MAPSIZE_Y 10
 #define MAPSIZE_Z 10
+#define GLSL_VERSION "#version 400"
 
 
 float vertColTexBuffer[] =
@@ -77,18 +84,13 @@ glm::mat4 model;
 glm::mat4 projection;
 glm::mat4 view;
 
-/* Vectors */
-glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
 /* Frames */
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
-/* Camera Attributes */
-float pitch = 0.0f;
-float yaw = -90.0f;
+/* Camera */
+Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 float lastX = float(SCR_WIDTH) / 2.0f;
 float lastY = float(SCR_HEIGHT) / 2.0f;
 bool isFirstMouse = true;
@@ -99,8 +101,8 @@ int main()
 	glfwInit();
 
 	/* Initialize Version 3.3 */
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 #ifdef __APPLE__
@@ -122,7 +124,7 @@ int main()
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	glfwSetCursorPosCallback(window, mouse_cursor_position);
 	glfwSetScrollCallback(window, mouse_scroll_position);
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	//glfwSetInputMode(window, GLFW_CURSOR,GLFW_CURSOR_DISABLED);
 
 	// check Glew 
 	if (glewInit() != GLEW_OK)
@@ -133,6 +135,18 @@ int main()
 
 	/* Options */
 	glEnable(GL_DEPTH_TEST);
+
+	/* ImGui */
+	// Setup Dear ImGui context
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO();
+	// Setup the Platform
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplOpenGL3_Init(GLSL_VERSION);
+
+	// Setup style
+	ImGui::StyleColorsDark();
 
 
 	/* Buffers */
@@ -161,16 +175,19 @@ int main()
 
 	/* Texture */
 	stbi_set_flip_vertically_on_load(true);
-	unsigned int mainTex = load_texture("res/Texture/goldenTexture.jpg");
-	unsigned int subTex = load_texture("res/Texture/TextureLava.jpg");
+	unsigned int container_texture = load_texture("res/Texture/container.jpg");
+	unsigned int face_texture = load_texture("res/Texture/awesomeface.png");
+	GLuint pyramid_texture = load_texture("res/Texture/pyramid.jpg");
 
 	/* Shader */
 	Shader myShader("res/Shader/vertexShader.glsl", "res/Shader/fragmentShader.glsl");
 	myShader.use();
-	myShader.setInt("mainTex", 0);
-	myShader.setInt("subTex", 1);
-	
+	myShader.setInt("container_texture", 0);
+	myShader.setInt("face_texture", 1);
+	myShader.setInt("pyramid_texture", 2);
 
+	// ShowDemo
+	bool ShowDemo = false;
 
 	/* Game Loop */
 	while (!glfwWindowShouldClose(window))
@@ -189,45 +206,68 @@ int main()
 		float camX = std::sin(time) * radius;
 		float camZ = std::cos(time) * radius;
 
-		myShader.setFloat("alpha", xValue);
+		// Gui Variables
+		static float scale_value[3] = { 1.0f ,1.0f , 1.0f };
+		static float color_value[3] = { 1.0f,1.0f,1.0f };
+		static bool isTexture = false;
+		static float alpha = 0.2f;
 
-		//vector
-		glm::vec3 myVector;
-		myVector.x = xValue;
-		myVector.y = yValue;
-		myVector.z = 0.31f;
-
-		myShader.setVec3("colors", myVector);
-
+		static bool isColor = false;
+		myShader.setVec3("colors", color_value[0], color_value[1], color_value[2]);
+		myShader.setBool("isColor", isColor);
+		myShader.setBool("isTexture", isTexture);
+		myShader.setFloat("alpha", alpha);
 
 		/* Coordinates */
 		// Projection
-		projection = glm::perspective(glm::radians(45.0f), float(SCR_WIDTH) / float(SCR_HEIGHT), 0.1f, 100.0f);
+		projection = glm::perspective(glm::radians(camera.Zoom), float(SCR_WIDTH) / float(SCR_HEIGHT), 0.1f, 100.0f);
 		myShader.setMat4("projection", projection);
 
 		// View
 		view = glm::mat4(1.0f);
-		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+		view = camera.GetViewMatrix();
 		myShader.setMat4("view", view);
 
 		// Model
 		model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(1.2f));
+		model = glm::scale(model, glm::vec3(scale_value[0], scale_value[1], scale_value[2]));
 		myShader.setMat4("model", model);
 
 		/* Render */
 		glClearColor(0.1f, 0.2f, 0.3f, 1.0f); // 0.0 - 1.0
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+		/* Start new frame for Dear ImGui */
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+
+		if (ShowDemo)
+			ImGui::ShowDemoWindow(&ShowDemo);
+
 		myShader.use();
 
 		glBindVertexArray(VAO);
 		glLineWidth(10.0f);
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, mainTex);
+		glBindTexture(GL_TEXTURE_2D, container_texture);
 		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, subTex);
+		glBindTexture(GL_TEXTURE_2D, face_texture);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		// Render your GUI
+		ImGui::Begin("It's My First GUI");
+		ImGui::Text("Hello ppl wassup");
+		ImGui::Checkbox("Color", &isColor);
+		ImGui::Checkbox("Texture", &isTexture);
+		ImGui::SliderFloat("alpha", &alpha, 0.0f, 1.0f);
+		ImGui::DragFloat3("Scale", scale_value, 0.1f, 0.01f, 5.0f);
+		ImGui::ColorEdit3("Color", color_value);
+		ImGui::End();
+
+		// Render to screen
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 		//Display
 		glfwSwapBuffers(window);
@@ -236,6 +276,9 @@ int main()
 	}
 
 	/* Clear */
+	ImGui_ImplGlfw_Shutdown();
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui::DestroyContext();
 	glfwDestroyWindow(window);
 	glfwTerminate();
 
@@ -254,17 +297,17 @@ void userInput(GLFWwindow* window)
 		glfwSetWindowShouldClose(window, GLFW_TRUE);
 
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_TRUE) // Forward
-		cameraPos += cameraFront * camera_speed;
+		camera.ProcessKeyboard(FORWARD, deltaTime);
 	else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_TRUE) // Backward
-		cameraPos -= cameraFront * camera_speed;
+		camera.ProcessKeyboard(BACKWARD, deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_TRUE) // Right
-		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * camera_speed;
+		camera.ProcessKeyboard(RIGHT, deltaTime);
 	else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_TRUE) // Left
-		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * camera_speed;
+		camera.ProcessKeyboard(LEFT, deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_TRUE) // Up
-		cameraPos += cameraUp * camera_speed;
+		camera.ProcessKeyboard(UP, deltaTime);
 	else if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_TRUE) // Down
-		cameraPos -= cameraUp * camera_speed;
+		camera.ProcessKeyboard(DOWN, deltaTime);
 
 }
 void mouse_cursor_position(GLFWwindow* window, double xpos, double ypos)
@@ -281,31 +324,13 @@ void mouse_cursor_position(GLFWwindow* window, double xpos, double ypos)
 	lastX = xpos;
 	lastY = ypos;
 
-	float sensitivity = 0.1f;
-
-	xoffset *= sensitivity;
-	yoffset *= sensitivity;
-
-	yaw += xoffset;
-	pitch += yoffset;
-
-	if (pitch >= 89.0f)
-		pitch = 89.0f;
-	if (pitch <= -89.0f)
-		pitch = -89.0f;
-
-	glm::vec3 direction;
-	direction.x = std::cos(glm::radians(yaw)) * std::cos(glm::radians(pitch));
-	direction.y = std::sin(glm::radians(pitch));
-	direction.z = std::sin(glm::radians(yaw)) * std::cos(glm::radians(pitch));
-	cameraFront = glm::normalize(direction);
-
-
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_TRUE)
+		camera.ProcessMouseMovement(xoffset, yoffset);
 }
 
 void mouse_scroll_position(GLFWwindow* window, double xoffset, double yoffset)
 {
-	std::cout << "Mouse Scroll :" << yoffset << std::endl;
+	camera.ProcessMouseScroll(yoffset);
 }
 
 unsigned int load_texture(const char* texture_path)
