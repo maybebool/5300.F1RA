@@ -72,17 +72,27 @@ float vertColTexBuffer[] =
 
 };
 
+int main();
+
 /* Functions */
 void framebuffer_size_callback(GLFWwindow* window, int width, int height); // Protype
 void userInput(GLFWwindow* window); // protype
 void mouse_cursor_position(GLFWwindow* window, double xpos, double ypos); // Protype
 void mouse_scroll_position(GLFWwindow* window, double xoffset, double yoffset); // Protype
-unsigned int load_texture(const char* texture_path); // Protype
+unsigned int load_texture(const char* texture_path);
+void setTransformWithLinkedMat();
+void SetGUI();
 
 /* Matrices */
 glm::mat4 model;
 glm::mat4 projection;
 glm::mat4 view;
+
+glm::mat4 t;
+glm::mat4 r;
+glm::mat4 s;
+
+unsigned int VBO, VAO;
 
 
 /* Frames */
@@ -94,6 +104,18 @@ Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 float lastX = float(SCR_WIDTH) / 2.0f;
 float lastY = float(SCR_HEIGHT) / 2.0f;
 bool isFirstMouse = true;
+Shader myShader;
+
+
+static float scale_value[3] = { 1.0f ,1.0f , 1.0f };
+static float color_value[3] = { 1.0f,1.0f,1.0f };
+static bool isTexture = false;
+static float alpha = 0.2f;
+
+static bool isColor = false;
+float scale1 = 1;
+
+
 
 int main()
 {
@@ -101,8 +123,8 @@ int main()
 	glfwInit();
 
 	/* Initialize Version 3.3 */
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 
@@ -147,7 +169,7 @@ int main()
 
 
 	/* Buffers */
-	unsigned int VBO, VAO;
+	
 
 	glGenVertexArrays(1, &VAO);
 
@@ -174,17 +196,14 @@ int main()
 	stbi_set_flip_vertically_on_load(true);
 	unsigned int main_Texture = load_texture("res/Texture/goldenTexture.jpg");
 	unsigned int sub_Texture = load_texture("res/Texture/TextureLava.jpg");
-	//GLuint pyramid_texture = load_texture("res/Texture/pyramid.jpg");
+	
 
 	/* Shader */
-	Shader myShader("res/Shader/vertexShader.glsl", "res/Shader/fragmentShader.glsl");
+	myShader = Shader("res/Shader/vertexShader.glsl", "res/Shader/fragmentShader.glsl");
 	myShader.use();
 	myShader.setInt("main_Texture", 0);
 	myShader.setInt("sub_Texture", 1);
-	//myShader.setInt("pyramid_texture", 2);
 
-	// ShowDemo
-	bool ShowDemo = false;
 
 	/* Game Loop */
 	while (!glfwWindowShouldClose(window))
@@ -203,44 +222,20 @@ int main()
 		float camX = std::sin(time) * radius;
 		float camZ = std::cos(time) * radius;
 
-		// Gui Variables
-		static float scale_value[3] = { 1.0f ,1.0f , 1.0f };
-		static float color_value[3] = { 1.0f,1.0f,1.0f };
-		static bool isTexture = false;
-		static float alpha = 0.2f;
-
-		static bool isColor = false;
+		
+		
 		myShader.setVec3("colors", color_value[0], color_value[1], color_value[2]);
 		myShader.setBool("isColor", isColor);
 		myShader.setBool("isTexture", isTexture);
 		myShader.setFloat("alpha", alpha);
 
-		/* Coordinates */
-		// Projection
-		projection = glm::perspective(glm::radians(camera.Zoom), float(SCR_WIDTH) / float(SCR_HEIGHT), 0.1f, 100.0f);
-		myShader.setMat4("projection", projection);
+		
+		setTransformWithLinkedMat();
 
-		// View
-		view = glm::mat4(1.0f);
-		view = camera.GetViewMatrix();
-		myShader.setMat4("view", view);
-
-		// Model
-		model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(scale_value[0], scale_value[1], scale_value[2]));
-		myShader.setMat4("model", model);
-
-		/* Render */
-		glClearColor(0.1f, 0.2f, 0.3f, 1.0f); // 0.0 - 1.0
+		glClearColor(0.9f, 0.2f, 0.3f, 1.0f); // 0.0 - 1.0
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		/* Start new frame for Dear ImGui */
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplGlfw_NewFrame();
-		ImGui::NewFrame();
-
-		if (ShowDemo)
-			ImGui::ShowDemoWindow(&ShowDemo);
+		
 
 		myShader.use();
 
@@ -252,19 +247,8 @@ int main()
 		glBindTexture(GL_TEXTURE_2D, sub_Texture);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
-		// Render your GUI
-		ImGui::Begin("UI Settings");
-		ImGui::Text("Texture must be active for Texture blend with alpha chânnel");
-		ImGui::Checkbox("Color", &isColor);
-		ImGui::Checkbox("Texture", &isTexture);
-		ImGui::SliderFloat("alpha", &alpha, 0.0f, 1.0f);
-		ImGui::DragFloat3("Scale", scale_value, 0.1f, 0.01f, 5.0f);
-		ImGui::ColorEdit3("Color", color_value);
-		ImGui::End();
-
-		// Render to screen
-		ImGui::Render();
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+		SetGUI();
+		
 
 		//Display
 		glfwSwapBuffers(window);
@@ -367,3 +351,61 @@ unsigned int load_texture(const char* texture_path)
 
 	return texture;
 }
+
+
+void setTransformWithLinkedMat() {
+
+
+	glm::mat4 model = glm::mat4(1.0f);
+	glm::mat4 view = glm::mat4(1.0f);
+	glm::mat4 projection = glm::mat4(1.0f);
+
+	glm::mat4 t = glm::mat4(1.0f);
+	glm::mat4 r = glm::mat4(1.0f);
+	glm::mat4 s = glm::mat4(1.0f);
+
+
+	
+
+	float rotation = glfwGetTime() * 30;
+
+	t = glm::translate(t, glm::vec3(0.0f, 0.0f, -1.0f));
+	r = glm::rotate(r, glm::radians(rotation), glm::vec3(1.0f, 1.0f, 0.0f));
+	s = glm::scale(s, glm::vec3(scale1, scale1, scale1));
+
+	model = s * r * t;
+	//model = t * r * s; // funktioniert
+	
+
+
+	view = camera.GetViewMatrix();
+
+	projection = glm::perspective(glm::radians(camera.Zoom), float(SCR_WIDTH) / float(SCR_HEIGHT), 0.1f, 1000.0f);
+
+	myShader.setMat4("model", model);
+	myShader.setMat4("view", view);
+	myShader.setMat4("projection", projection);
+
+}
+
+void SetGUI() {
+	/* Start new frame for Dear ImGui */
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplGlfw_NewFrame();
+	ImGui::NewFrame();
+
+	// Render your GUI
+	ImGui::Begin("UI Settings");
+	ImGui::Text("Texture must be active for Texture blend with alpha chânnel");
+	ImGui::Checkbox("Color", &isColor);
+	ImGui::Checkbox("Texture", &isTexture);
+	ImGui::SliderFloat("alpha", &alpha, 0.0f, 1.0f);
+	ImGui::DragFloat3("Scale", scale_value, 0.1f, 0.01f, 5.0f);
+	ImGui::ColorEdit3("Color", color_value);
+	ImGui::End();
+
+	// Render to screen
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+

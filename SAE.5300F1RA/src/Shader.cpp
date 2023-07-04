@@ -1,5 +1,7 @@
 #include "Shader.h"
 
+// Constructor for default initalization
+Shader::Shader(){}
 
 Shader::Shader(const char* vertexPath, const char* fragmentPath)
 {

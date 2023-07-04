@@ -24,6 +24,8 @@ private:
 public:
     unsigned int ID;
 
+    // Constructor for default initalization
+    Shader();
     // Constructor
     Shader(const char* vertexPath, const char* fragmentPath);
 
