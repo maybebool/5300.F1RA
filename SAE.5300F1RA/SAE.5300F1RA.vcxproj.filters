@@ -944,6 +944,9 @@
     <ClInclude Include="src\Shader.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="src\Camera.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Vendor\glm\glm\detail\func_common.inl">

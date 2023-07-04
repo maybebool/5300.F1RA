@@ -175,16 +175,16 @@ int main()
 
 	/* Texture */
 	stbi_set_flip_vertically_on_load(true);
-	unsigned int container_texture = load_texture("res/Texture/container.jpg");
-	unsigned int face_texture = load_texture("res/Texture/awesomeface.png");
-	GLuint pyramid_texture = load_texture("res/Texture/pyramid.jpg");
+	unsigned int main_Texture = load_texture("res/Texture/goldenTexture.jpg");
+	unsigned int sub_Texture = load_texture("res/Texture/TextureLava.jpg");
+	//GLuint pyramid_texture = load_texture("res/Texture/pyramid.jpg");
 
 	/* Shader */
 	Shader myShader("res/Shader/vertexShader.glsl", "res/Shader/fragmentShader.glsl");
 	myShader.use();
-	myShader.setInt("container_texture", 0);
-	myShader.setInt("face_texture", 1);
-	myShader.setInt("pyramid_texture", 2);
+	myShader.setInt("main_Texture", 0);
+	myShader.setInt("sub_Texture", 1);
+	//myShader.setInt("pyramid_texture", 2);
 
 	// ShowDemo
 	bool ShowDemo = false;
@@ -250,9 +250,9 @@ int main()
 		glBindVertexArray(VAO);
 		glLineWidth(10.0f);
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, container_texture);
+		glBindTexture(GL_TEXTURE_2D, main_Texture);
 		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, face_texture);
+		glBindTexture(GL_TEXTURE_2D, sub_Texture);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		// Render your GUI
