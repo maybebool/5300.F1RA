@@ -76,7 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\SAE\Prüfungen\GPR5300\SAE.5300F1RA\SAE.5300F1RA\src;E:\SAE\Prüfungen\GPR5300\SAE.5300F1RA\SAE.5300F1RA\src\Vendor\stb_image;E:\SAE\Prüfungen\GPR5300\SAE.5300F1RA\SAE.5300F1RA\src\Vendor\imgui;E:\SAE\Prüfungen\GPR5300\SAE.5300F1RA\SAE.5300F1RA\src\Vendor\glm;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SAE.5300F1RA\src;$(SolutionDir)SAE.5300F1RA\src\Vendor\stb_image;$(SolutionDir)SAE.5300F1RA\src\Vendor\imgui;$(SolutionDir)SAE.5300F1RA\src\Vendor\glm;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -93,7 +93,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\SAE\Prüfungen\GPR5300\SAE.5300F1RA\SAE.5300F1RA\src;E:\SAE\Prüfungen\GPR5300\SAE.5300F1RA\SAE.5300F1RA\src\Vendor\stb_image;E:\SAE\Prüfungen\GPR5300\SAE.5300F1RA\SAE.5300F1RA\src\Vendor\imgui;E:\SAE\Prüfungen\GPR5300\SAE.5300F1RA\SAE.5300F1RA\src\Vendor\glm;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SAE.5300F1RA\src;$(SolutionDir)SAE.5300F1RA\src\Vendor\stb_image;$(SolutionDir)SAE.5300F1RA\src\Vendor\imgui;$(SolutionDir)SAE.5300F1RA\src\Vendor\glm;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -110,7 +110,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\SAE\Prüfungen\GPR5300\SAE.5300F1RA\SAE.5300F1RA\src;E:\SAE\Prüfungen\GPR5300\SAE.5300F1RA\SAE.5300F1RA\src\Vendor\stb_image;E:\SAE\Prüfungen\GPR5300\SAE.5300F1RA\SAE.5300F1RA\src\Vendor\imgui;E:\SAE\Prüfungen\GPR5300\SAE.5300F1RA\SAE.5300F1RA\src\Vendor\glm;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SAE.5300F1RA\src;$(SolutionDir)SAE.5300F1RA\src\Vendor\stb_image;$(SolutionDir)SAE.5300F1RA\src\Vendor\imgui;$(SolutionDir)SAE.5300F1RA\src\Vendor\glm;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,7 +127,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\SAE\Prüfungen\GPR5300\SAE.5300F1RA\SAE.5300F1RA\src;E:\SAE\Prüfungen\GPR5300\SAE.5300F1RA\SAE.5300F1RA\src\Vendor\stb_image;E:\SAE\Prüfungen\GPR5300\SAE.5300F1RA\SAE.5300F1RA\src\Vendor\imgui;E:\SAE\Prüfungen\GPR5300\SAE.5300F1RA\SAE.5300F1RA\src\Vendor\glm;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SAE.5300F1RA\src;$(SolutionDir)SAE.5300F1RA\src\Vendor\stb_image;$(SolutionDir)SAE.5300F1RA\src\Vendor\imgui;$(SolutionDir)SAE.5300F1RA\src\Vendor\glm;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

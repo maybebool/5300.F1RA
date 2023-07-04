@@ -17,8 +17,8 @@
 #include "imgui_impl_opengl3.h"
 
 
-#define SCR_WIDTH 1000
-#define SCR_HEIGHT 800
+#define SCR_WIDTH 1920
+#define SCR_HEIGHT 1080
 #define MAPSIZE_X 10
 #define MAPSIZE_Y 10
 #define MAPSIZE_Z 10
@@ -105,12 +105,9 @@ int main()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-#ifdef __APPLE__
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif
 
 	/* Create a window */
-	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "OpenGL 3.3", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "OpenGL 4.0", NULL, NULL);
 
 	// Check window
 	if (!window)
@@ -256,8 +253,8 @@ int main()
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		// Render your GUI
-		ImGui::Begin("It's My First GUI");
-		ImGui::Text("Hello ppl wassup");
+		ImGui::Begin("UI Settings");
+		ImGui::Text("Texture must be active for Texture blend with alpha chânnel");
 		ImGui::Checkbox("Color", &isColor);
 		ImGui::Checkbox("Texture", &isTexture);
 		ImGui::SliderFloat("alpha", &alpha, 0.0f, 1.0f);
