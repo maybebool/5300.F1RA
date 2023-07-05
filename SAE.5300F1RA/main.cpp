@@ -377,7 +377,7 @@ void SetGUI() {
 	ImGui::NewFrame();
 
 
-	char txt_movement[] = "- Hold the right mouse button for look around\n- Use W,A,S,D to move the camera.\n";
+	char txt_movement[] = "- Hold the right mouse button for look around.\n- Use W,A,S,D to move the camera.\n- Use mouse scroll to zoom in and out.";
 	char txt_alpha[] = "- activates Sub-Texture alpha channel";
 	char txt_color[] = "- activates RGB channel";
 	
