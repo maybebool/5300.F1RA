@@ -25,52 +25,7 @@
 #define GLSL_VERSION "#version 400"
 
 
-//float vertColTexBuffer[] =
-//{
-//	/*Top Position* /		/* Color */			/* TexCoords */
-//	-0.5f,-0.5f, 0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
-//	 0.5f,-0.5f, 0.5f,		0.0f, 1.0f, 0.0f,		1.0f, 0.0f,
-//	 0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
-//	 0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
-//	-0.5f, 0.5f, 0.5f,		1.0f, 1.0f, 0.0f,		0.0f, 1.0f,
-//	-0.5f,-0.5f, 0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
-//	/* Bottom Position */					
-//	-0.5f,-0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
-//	 0.5f,-0.5f,-0.5f,		0.0f, 1.0f, 0.0f,		1.0f, 0.0f,
-//	 0.5f, 0.5f,-0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
-//	 0.5f, 0.5f,-0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
-//	-0.5f, 0.5f,-0.5f,		1.0f, 1.0f, 0.0f,		0.0f, 1.0f,
-//	-0.5f,-0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
-//	/* Left Position */				
-//	-0.5f,-0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
-//	-0.5f, 0.5f,-0.5f,		0.0f, 1.0f, 0.0f,		1.0f, 0.0f,
-//	-0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
-//	-0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
-//	-0.5f,-0.5f, 0.5f,		1.0f, 1.0f, 0.0f,		0.0f, 1.0f,
-//	-0.5f,-0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
-//	/* Right Position */					
-//	 0.5f,-0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
-//	 0.5f, 0.5f,-0.5f,		0.0f, 1.0f, 0.0f,		1.0f, 0.0f,
-//	 0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
-//	 0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
-//	 0.5f,-0.5f, 0.5f,		1.0f, 1.0f, 0.0f,		0.0f, 1.0f,
-//	 0.5f,-0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
-//	 /* Back Position */				
-//	 -0.5f, 0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
-//	  0.5f, 0.5f,-0.5f,		0.0f, 1.0f, 0.0f,		1.0f, 0.0f,
-//	  0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
-//	  0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
-//	 -0.5f, 0.5f, 0.5f,		1.0f, 1.0f, 0.0f,		0.0f, 1.0f,
-//	 -0.5f, 0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
-//	 /* Front Position */	
-//	 -0.5f,-0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
-//	  0.5f,-0.5f,-0.5f,		0.0f, 1.0f, 0.0f,		1.0f, 0.0f,
-//	  0.5f,-0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
-//	  0.5f,-0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
-//	 -0.5f,-0.5f, 0.5f,		1.0f, 1.0f, 0.0f,		0.0f, 1.0f,
-//	 -0.5f,-0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
-//
-//};
+
 
 float vertColTexBuffer[] =
 {
@@ -143,11 +98,11 @@ glm::mat4 s;
 unsigned int VBO, VAO;
 
 
-/* Frames */
+// Frames
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
-/* Camera */
+// Camera
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 float lastX = float(SCR_WIDTH) / 2.0f;
 float lastY = float(SCR_HEIGHT) / 2.0f;
@@ -155,13 +110,12 @@ bool isFirstMouse = true;
 Shader myShader;
 
 
+
 static float scale_value[3] = { 1.0f ,1.0f , 1.0f };
 static float color_value[3] = { 1.0f,1.0f,1.0f };
 static bool isTexture = false;
 static float alpha = 0.2f;
-
 static bool isColor = false;
-float scale1 = 1;
 
 
 
@@ -422,8 +376,10 @@ void SetGUI() {
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 
+
 	char txt_movement[] = "- Hold the right mouse button for look around\n- Use W,A,S,D to move the camera.\n";
-	char txt_alpha[] = "- The texture must be active for texture blending with alpha channel";
+	char txt_alpha[] = "- activates Sub-Texture alpha channel";
+	char txt_color[] = "- activates RGB channel";
 	
 
 	ImGui::Begin("Controls");
@@ -435,17 +391,34 @@ void SetGUI() {
 	ImGui::Dummy(ImVec2(0.0f, 10.0f));;
 
 	ImGui::Checkbox("Color", &isColor);
+	ImGui::SameLine();
+	ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(0, 150, 150, 255));
+	ImGui::Text(txt_color);
+	ImGui::PopStyleColor();
+	if (isColor == true)
+	{
+		ImGui::ColorEdit3("Color", color_value);
+		ImGui::Dummy(ImVec2(0.0f, 10.0f));
+	}
+
 	ImGui::Checkbox("Texture", &isTexture);
-	ImGui::SliderFloat("alpha", &alpha, 0.0f, 1.0f);
+	ImGui::SameLine();
+	ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(0, 150, 150, 255));
+	ImGui::Text(txt_alpha);
+	ImGui::PopStyleColor();
+	if (isTexture == true)
+	{
+		ImGui::SliderFloat("Sub-Texture alpha", &alpha, 0.0f, 1.0f);
+		ImGui::Dummy(ImVec2(0.0f, 10.0f));
+	}
+
+	
 	ImGui::DragFloat3("Scale", scale_value, 0.1f, 0.01f, 5.0f);
-	ImGui::ColorEdit3("Color", color_value);
 	ImGui::Dummy(ImVec2(0.0f, 30.0f));;
 	
 	ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(65, 253, 254, 255));
 	ImGui::Text("How to play");
 	ImGui::PopStyleColor();
-
-	ImGui::Text(txt_alpha);
 	ImGui::Text(txt_movement);
 
 	ImGui::End();
