@@ -24,5 +24,4 @@ void main()
 		FragColor = vec4(colors,1.0f);
 	else
 		FragColor = vec4(1.0f);
-	
 }

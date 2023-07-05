@@ -10,12 +10,10 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-
 #include "stb_image.h"
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
-
 
 #define SCR_WIDTH 1920
 #define SCR_HEIGHT 1080
@@ -71,7 +69,6 @@ float vertColTexBuffer[] =
 	  0.5f,-0.5f, 0.5f,		1.0f, 1.0f, 1.0f,		1.0f, 1.0f,
 	 -0.5f,-0.5f, 0.5f,		1.0f, 1.0f, 1.0f,		0.0f, 1.0f,
 	 -0.5f,-0.5f,-0.5f,		1.0f, 1.0f, 1.0f,		0.0f, 0.0f,
-
 };
 
 int main();
@@ -95,8 +92,8 @@ glm::mat4 t;
 glm::mat4 r;
 glm::mat4 s;
 
+// Buffers
 unsigned int VBO, VAO;
-
 
 // Frames
 float deltaTime = 0.0f;
@@ -109,28 +106,20 @@ float lastY = float(SCR_HEIGHT) / 2.0f;
 bool isFirstMouse = true;
 Shader myShader;
 
-
-
+// Object parameters
 static float scale_value[3] = { 1.0f ,1.0f , 1.0f };
 static float color_value[3] = { 1.0f,1.0f,1.0f };
 static bool isTexture = false;
 static float alpha = 0.2f;
 static bool isColor = false;
 
-
-
 int main()
 {
-	/* Initialize GLFW */
 	glfwInit();
-
-	/* Initialize Version 3.3 */
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-
-	/* Create a window */
 	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "OpenGL 4.0", NULL, NULL);
 
 	// Check window
@@ -140,12 +129,11 @@ int main()
 		glfwTerminate();
 	}
 
-	/* The most important part */
 	glfwMakeContextCurrent(window);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	glfwSetCursorPosCallback(window, mouse_cursor_position);
 	glfwSetScrollCallback(window, mouse_scroll_position);
-	//glfwSetInputMode(window, GLFW_CURSOR,GLFW_CURSOR_DISABLED);
+	
 
 	// check Glew 
 	if (glewInit() != GLEW_OK)
@@ -156,12 +144,12 @@ int main()
 
 	/* Options */
 	glEnable(GL_DEPTH_TEST);
-
-	/* ImGui */
+	
 	// Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
+
 	// Setup the Platform
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init(GLSL_VERSION);
@@ -169,10 +157,8 @@ int main()
 	// Setup style
 	ImGui::StyleColorsDark();
 
-
 	/* Buffers */
 	
-
 	glGenVertexArrays(1, &VAO);
 
 	glGenBuffers(1, &VBO);
@@ -199,18 +185,15 @@ int main()
 	unsigned int main_Texture = load_texture("res/Texture/goldenTexture.jpg");
 	unsigned int sub_Texture = load_texture("res/Texture/TextureLava.jpg");
 	
-
 	/* Shader */
 	myShader = Shader("res/Shader/vertexShader.glsl", "res/Shader/fragmentShader.glsl");
 	myShader.use();
 	myShader.setInt("main_Texture", 0);
 	myShader.setInt("sub_Texture", 1);
 
-
 	/* Game Loop */
 	while (!glfwWindowShouldClose(window))
 	{
-
 		/* Update */
 		userInput(window);
 		float time = glfwGetTime();
@@ -247,7 +230,6 @@ int main()
 	ImGui::DestroyContext();
 	glfwDestroyWindow(window);
 	glfwTerminate();
-
 }
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
@@ -259,20 +241,20 @@ void userInput(GLFWwindow* window)
 {
 	const float camera_speed = 2.5f * deltaTime;
 
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) // To exit the program
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) 
 		glfwSetWindowShouldClose(window, GLFW_TRUE);
 
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_TRUE) // Forward
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_TRUE)
 		camera.ProcessKeyboard(FORWARD, deltaTime);
-	else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_TRUE) // Backward
+	else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_TRUE)
 		camera.ProcessKeyboard(BACKWARD, deltaTime);
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_TRUE) // Right
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_TRUE)
 		camera.ProcessKeyboard(RIGHT, deltaTime);
-	else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_TRUE) // Left
+	else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_TRUE)
 		camera.ProcessKeyboard(LEFT, deltaTime);
-	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_TRUE) // Up
+	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_TRUE)
 		camera.ProcessKeyboard(UP, deltaTime);
-	else if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_TRUE) // Down
+	else if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_TRUE)
 		camera.ProcessKeyboard(DOWN, deltaTime);
 
 }
@@ -305,7 +287,6 @@ unsigned int load_texture(const char* texture_path)
 	glGenTextures(1, &texture);
 	glBindTexture(GL_TEXTURE_2D, texture);
 
-	/* Filter Options */
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
@@ -329,17 +310,15 @@ unsigned int load_texture(const char* texture_path)
 	}
 	else
 	{
-		std::cout << "Failed to load texture\n";
+		std::cout << "texture load has failed.\n";
 	}
 
 	stbi_image_free(data);
-
 	return texture;
 }
 
 
 void setTransformMatrix() {
-
 
 	glm::mat4 model = glm::mat4(1.0f);
 	glm::mat4 view = glm::mat4(1.0f);
@@ -348,9 +327,6 @@ void setTransformMatrix() {
 	glm::mat4 t = glm::mat4(1.0f);
 	glm::mat4 r = glm::mat4(1.0f);
 	glm::mat4 s = glm::mat4(1.0f);
-
-
-	
 
 	float rotation = glfwGetTime() * 30;
 
@@ -376,11 +352,9 @@ void SetGUI() {
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 
-
 	char txt_movement[] = "- Hold the right mouse button for look around.\n- Use W,A,S,D to move the camera.\n- Use mouse scroll to zoom in and out.";
 	char txt_alpha[] = "- activates Sub-Texture alpha channel";
 	char txt_color[] = "- activates RGB channel";
-	
 
 	ImGui::Begin("Controls");
 
@@ -412,7 +386,6 @@ void SetGUI() {
 		ImGui::Dummy(ImVec2(0.0f, 10.0f));
 	}
 
-	
 	ImGui::DragFloat3("Scale", scale_value, 0.1f, 0.01f, 5.0f);
 	ImGui::Dummy(ImVec2(0.0f, 30.0f));;
 	

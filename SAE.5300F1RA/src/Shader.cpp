@@ -54,6 +54,7 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
 		glGetShaderInfoLog(vertex, 1024, NULL, infolog);
 		std::cout << "FAILED::SHADER::VERTEX::<" << infolog << std::endl;
 	}
+
 	//fragment
 	this->fragment = glCreateShader(GL_FRAGMENT_SHADER);
 
