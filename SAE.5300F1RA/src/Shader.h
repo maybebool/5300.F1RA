@@ -16,21 +16,25 @@
 class Shader
 {
 private:
+
     std::string vertexCode, fragmentCode;
     std::ifstream vertexShaderFile, fragmentShaderFile;
     std::stringstream vertexShaderStream, fragmentShaderStream;
     const char* vertexShaderData, * fragmentShaderData;
     unsigned int vertex, fragment;
+
 public:
+
     unsigned int ID;
 
     // Constructor for default initalization
     Shader();
-    // Constructor
+ 
     Shader(const char* vertexPath, const char* fragmentPath);
 
     // use
     void use();
+
     // utility uniform functions
 
     void setBool(const std::string& name, bool value);

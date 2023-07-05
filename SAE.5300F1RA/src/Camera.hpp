@@ -43,8 +43,7 @@ public:
 	float Zoom;
 
 	// constructor with vectors
-	Camera(vec3 position = vec3(0.0f), vec3 up = vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH)
-		: Front(vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
+	Camera(vec3 position = vec3(0.0f), vec3 up = vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH): Front(vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
 	{
 		this->Position = position;
 		this->WorldUp = up;
@@ -107,7 +106,7 @@ private:
 		direction.z = std::sin(glm::radians(this->Yaw)) * std::cos(glm::radians(this->Pitch));
 		this->Front = glm::normalize(direction);
 
-		// Alsom re-calculate for Right and Up vectors
+		//re-calculate for Right and Up vectors
 		this->Right = normalize(cross(this->Front, this->WorldUp));
 		this->Up = normalize(cross(this->Right, this->Front));
 	}

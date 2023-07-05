@@ -25,50 +25,97 @@
 #define GLSL_VERSION "#version 400"
 
 
+//float vertColTexBuffer[] =
+//{
+//	/*Top Position* /		/* Color */			/* TexCoords */
+//	-0.5f,-0.5f, 0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
+//	 0.5f,-0.5f, 0.5f,		0.0f, 1.0f, 0.0f,		1.0f, 0.0f,
+//	 0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
+//	 0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
+//	-0.5f, 0.5f, 0.5f,		1.0f, 1.0f, 0.0f,		0.0f, 1.0f,
+//	-0.5f,-0.5f, 0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
+//	/* Bottom Position */					
+//	-0.5f,-0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
+//	 0.5f,-0.5f,-0.5f,		0.0f, 1.0f, 0.0f,		1.0f, 0.0f,
+//	 0.5f, 0.5f,-0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
+//	 0.5f, 0.5f,-0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
+//	-0.5f, 0.5f,-0.5f,		1.0f, 1.0f, 0.0f,		0.0f, 1.0f,
+//	-0.5f,-0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
+//	/* Left Position */				
+//	-0.5f,-0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
+//	-0.5f, 0.5f,-0.5f,		0.0f, 1.0f, 0.0f,		1.0f, 0.0f,
+//	-0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
+//	-0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
+//	-0.5f,-0.5f, 0.5f,		1.0f, 1.0f, 0.0f,		0.0f, 1.0f,
+//	-0.5f,-0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
+//	/* Right Position */					
+//	 0.5f,-0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
+//	 0.5f, 0.5f,-0.5f,		0.0f, 1.0f, 0.0f,		1.0f, 0.0f,
+//	 0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
+//	 0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
+//	 0.5f,-0.5f, 0.5f,		1.0f, 1.0f, 0.0f,		0.0f, 1.0f,
+//	 0.5f,-0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
+//	 /* Back Position */				
+//	 -0.5f, 0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
+//	  0.5f, 0.5f,-0.5f,		0.0f, 1.0f, 0.0f,		1.0f, 0.0f,
+//	  0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
+//	  0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
+//	 -0.5f, 0.5f, 0.5f,		1.0f, 1.0f, 0.0f,		0.0f, 1.0f,
+//	 -0.5f, 0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
+//	 /* Front Position */	
+//	 -0.5f,-0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
+//	  0.5f,-0.5f,-0.5f,		0.0f, 1.0f, 0.0f,		1.0f, 0.0f,
+//	  0.5f,-0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
+//	  0.5f,-0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
+//	 -0.5f,-0.5f, 0.5f,		1.0f, 1.0f, 0.0f,		0.0f, 1.0f,
+//	 -0.5f,-0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
+//
+//};
+
 float vertColTexBuffer[] =
 {
 	/*Top Position* /		/* Color */			/* TexCoords */
-	-0.5f,-0.5f, 0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
-	 0.5f,-0.5f, 0.5f,		0.0f, 1.0f, 0.0f,		1.0f, 0.0f,
-	 0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
-	 0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
-	-0.5f, 0.5f, 0.5f,		1.0f, 1.0f, 0.0f,		0.0f, 1.0f,
-	-0.5f,-0.5f, 0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
-	/* Bottom Position */					
-	-0.5f,-0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
-	 0.5f,-0.5f,-0.5f,		0.0f, 1.0f, 0.0f,		1.0f, 0.0f,
-	 0.5f, 0.5f,-0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
-	 0.5f, 0.5f,-0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
-	-0.5f, 0.5f,-0.5f,		1.0f, 1.0f, 0.0f,		0.0f, 1.0f,
-	-0.5f,-0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
-	/* Left Position */				
-	-0.5f,-0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
-	-0.5f, 0.5f,-0.5f,		0.0f, 1.0f, 0.0f,		1.0f, 0.0f,
-	-0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
-	-0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
-	-0.5f,-0.5f, 0.5f,		1.0f, 1.0f, 0.0f,		0.0f, 1.0f,
-	-0.5f,-0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
-	/* Right Position */					
-	 0.5f,-0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
-	 0.5f, 0.5f,-0.5f,		0.0f, 1.0f, 0.0f,		1.0f, 0.0f,
-	 0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
-	 0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
-	 0.5f,-0.5f, 0.5f,		1.0f, 1.0f, 0.0f,		0.0f, 1.0f,
-	 0.5f,-0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
-	 /* Back Position */				
-	 -0.5f, 0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
-	  0.5f, 0.5f,-0.5f,		0.0f, 1.0f, 0.0f,		1.0f, 0.0f,
-	  0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
-	  0.5f, 0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
-	 -0.5f, 0.5f, 0.5f,		1.0f, 1.0f, 0.0f,		0.0f, 1.0f,
-	 -0.5f, 0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
-	 /* Front Position */	
-	 -0.5f,-0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
-	  0.5f,-0.5f,-0.5f,		0.0f, 1.0f, 0.0f,		1.0f, 0.0f,
-	  0.5f,-0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
-	  0.5f,-0.5f, 0.5f,		0.0f, 0.0f, 1.0f,		1.0f, 1.0f,
-	 -0.5f,-0.5f, 0.5f,		1.0f, 1.0f, 0.0f,		0.0f, 1.0f,
-	 -0.5f,-0.5f,-0.5f,		1.0f, 0.0f, 0.0f,		0.0f, 0.0f,
+	-0.5f,-0.5f, 0.5f,		1.0f, 1.0f, 1.0f,		0.0f, 0.0f,
+	 0.5f,-0.5f, 0.5f,		1.0f, 1.0f, 1.0f,		1.0f, 0.0f,
+	 0.5f, 0.5f, 0.5f,		1.0f, 1.0f, 1.0f,		1.0f, 1.0f,
+	 0.5f, 0.5f, 0.5f,		1.0f, 1.0f, 1.0f,		1.0f, 1.0f,
+	-0.5f, 0.5f, 0.5f,		1.0f, 1.0f, 1.0f,		0.0f, 1.0f,
+	-0.5f,-0.5f, 0.5f,		1.0f, 1.0f, 1.0f,		0.0f, 0.0f,
+	/* Bottom Position */
+	-0.5f,-0.5f,-0.5f,		1.0f, 1.0f, 1.0f,		0.0f, 0.0f,
+	 0.5f,-0.5f,-0.5f,		1.0f, 1.0f, 1.0f,		1.0f, 0.0f,
+	 0.5f, 0.5f,-0.5f,		1.0f, 1.0f, 1.0f,		1.0f, 1.0f,
+	 0.5f, 0.5f,-0.5f,		1.0f, 1.0f, 1.0f,		1.0f, 1.0f,
+	-0.5f, 0.5f,-0.5f,		1.0f, 1.0f, 1.0f,		0.0f, 1.0f,
+	-0.5f,-0.5f,-0.5f,		1.0f, 1.0f, 1.0f,		0.0f, 0.0f,
+	/* Left Position */
+	-0.5f,-0.5f,-0.5f,		1.0f, 1.0f, 1.0f,		0.0f, 0.0f,
+	-0.5f, 0.5f,-0.5f,		1.0f, 1.0f, 1.0f,		1.0f, 0.0f,
+	-0.5f, 0.5f, 0.5f,		1.0f, 1.0f, 1.0f,		1.0f, 1.0f,
+	-0.5f, 0.5f, 0.5f,		1.0f, 1.0f, 1.0f,		1.0f, 1.0f,
+	-0.5f,-0.5f, 0.5f,		1.0f, 1.0f, 1.0f,		0.0f, 1.0f,
+	-0.5f,-0.5f,-0.5f,		1.0f, 1.0f, 1.0f,		0.0f, 0.0f,
+	/* Right Position */
+	 0.5f,-0.5f,-0.5f,		1.0f, 1.0f, 1.0f,		0.0f, 0.0f,
+	 0.5f, 0.5f,-0.5f,		1.0f, 1.0f, 1.0f,		1.0f, 0.0f,
+	 0.5f, 0.5f, 0.5f,		1.0f, 1.0f, 1.0f,		1.0f, 1.0f,
+	 0.5f, 0.5f, 0.5f,		1.0f, 1.0f, 1.0f,		1.0f, 1.0f,
+	 0.5f,-0.5f, 0.5f,		1.0f, 1.0f, 1.0f,		0.0f, 1.0f,
+	 0.5f,-0.5f,-0.5f,		1.0f, 1.0f, 1.0f,		0.0f, 0.0f,
+	 /* Back Position */
+	 -0.5f, 0.5f,-0.5f,		1.0f, 1.0f, 1.0f,		0.0f, 0.0f,
+	  0.5f, 0.5f,-0.5f,		1.0f, 1.0f, 1.0f,		1.0f, 0.0f,
+	  0.5f, 0.5f, 0.5f,		1.0f, 1.0f, 1.0f,		1.0f, 1.0f,
+	  0.5f, 0.5f, 0.5f,		1.0f, 1.0f, 1.0f,		1.0f, 1.0f,
+	 -0.5f, 0.5f, 0.5f,		1.0f, 1.0f, 1.0f,		0.0f, 1.0f,
+	 -0.5f, 0.5f,-0.5f,		1.0f, 1.0f, 1.0f,		0.0f, 0.0f,
+	 /* Front Position */
+	 -0.5f,-0.5f,-0.5f,		1.0f, 1.0f, 1.0f,		0.0f, 0.0f,
+	  0.5f,-0.5f,-0.5f,		1.0f, 1.0f, 1.0f,		1.0f, 0.0f,
+	  0.5f,-0.5f, 0.5f,		1.0f, 1.0f, 1.0f,		1.0f, 1.0f,
+	  0.5f,-0.5f, 0.5f,		1.0f, 1.0f, 1.0f,		1.0f, 1.0f,
+	 -0.5f,-0.5f, 0.5f,		1.0f, 1.0f, 1.0f,		0.0f, 1.0f,
+	 -0.5f,-0.5f,-0.5f,		1.0f, 1.0f, 1.0f,		0.0f, 0.0f,
 
 };
 
@@ -80,8 +127,9 @@ void userInput(GLFWwindow* window); // protype
 void mouse_cursor_position(GLFWwindow* window, double xpos, double ypos); // Protype
 void mouse_scroll_position(GLFWwindow* window, double xoffset, double yoffset); // Protype
 unsigned int load_texture(const char* texture_path);
-void setTransformWithLinkedMat();
+void setTransformMatrix();
 void SetGUI();
+void ConnectingShaderParameters();
 
 /* Matrices */
 glm::mat4 model;
@@ -214,28 +262,13 @@ int main()
 		float time = glfwGetTime();
 		deltaTime = time - lastFrame;
 		lastFrame = time;
-		float xValue = std::cos(time) / 2.0f + 0.5f; // 0.0f - 1.0f
-		float yValue = std::cos(time) / 2.0f + 0.5f; // 0.0f - 1.0f
-		float zValue = std::sin(time) / 2.0f + 0.5f; // 0.0f - 1.0f
 
-		float radius = 5.0f;
-		float camX = std::sin(time) * radius;
-		float camZ = std::cos(time) * radius;
-
+		ConnectingShaderParameters();
 		
-		
-		myShader.setVec3("colors", color_value[0], color_value[1], color_value[2]);
-		myShader.setBool("isColor", isColor);
-		myShader.setBool("isTexture", isTexture);
-		myShader.setFloat("alpha", alpha);
-
-		
-		setTransformWithLinkedMat();
+		setTransformMatrix();
 
 		glClearColor(0.9f, 0.2f, 0.3f, 1.0f); // 0.0 - 1.0
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		
 
 		myShader.use();
 
@@ -249,10 +282,8 @@ int main()
 
 		SetGUI();
 		
-
-		//Display
 		glfwSwapBuffers(window);
-		//Pollevents
+	
 		glfwPollEvents();
 	}
 
@@ -353,7 +384,7 @@ unsigned int load_texture(const char* texture_path)
 }
 
 
-void setTransformWithLinkedMat() {
+void setTransformMatrix() {
 
 
 	glm::mat4 model = glm::mat4(1.0f);
@@ -371,13 +402,10 @@ void setTransformWithLinkedMat() {
 
 	t = glm::translate(t, glm::vec3(0.0f, 0.0f, -1.0f));
 	r = glm::rotate(r, glm::radians(rotation), glm::vec3(1.0f, 1.0f, 0.0f));
-	s = glm::scale(s, glm::vec3(scale1, scale1, scale1));
+	s = glm::scale(s, glm::vec3(scale_value[0], scale_value[1], scale_value[2]));
 
-	model = s * r * t;
-	//model = t * r * s; // funktioniert
+	model = s * r * t; // world 
 	
-
-
 	view = camera.GetViewMatrix();
 
 	projection = glm::perspective(glm::radians(camera.Zoom), float(SCR_WIDTH) / float(SCR_HEIGHT), 0.1f, 1000.0f);
@@ -389,23 +417,47 @@ void setTransformWithLinkedMat() {
 }
 
 void SetGUI() {
-	/* Start new frame for Dear ImGui */
+
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 
-	// Render your GUI
-	ImGui::Begin("UI Settings");
-	ImGui::Text("Texture must be active for Texture blend with alpha chânnel");
+	char txt_movement[] = "- Hold the right mouse button for look around\n- Use W,A,S,D to move the camera.\n";
+	char txt_alpha[] = "- The texture must be active for texture blending with alpha channel";
+	
+
+	ImGui::Begin("Controls");
+
+	ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(65, 253, 254, 255));
+	ImGui::Text("Parameters");
+	ImGui::PopStyleColor();
+
+	ImGui::Dummy(ImVec2(0.0f, 10.0f));;
+
 	ImGui::Checkbox("Color", &isColor);
 	ImGui::Checkbox("Texture", &isTexture);
 	ImGui::SliderFloat("alpha", &alpha, 0.0f, 1.0f);
 	ImGui::DragFloat3("Scale", scale_value, 0.1f, 0.01f, 5.0f);
 	ImGui::ColorEdit3("Color", color_value);
+	ImGui::Dummy(ImVec2(0.0f, 30.0f));;
+	
+	ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(65, 253, 254, 255));
+	ImGui::Text("How to play");
+	ImGui::PopStyleColor();
+
+	ImGui::Text(txt_alpha);
+	ImGui::Text(txt_movement);
+
 	ImGui::End();
 
-	// Render to screen
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
+void ConnectingShaderParameters() {
+	myShader.setVec3("colors", color_value[0], color_value[1], color_value[2]);
+	myShader.setBool("isColor", isColor);
+	myShader.setBool("isTexture", isTexture);
+	myShader.setFloat("alpha", alpha);
 }
 
